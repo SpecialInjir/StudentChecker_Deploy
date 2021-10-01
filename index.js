@@ -7,7 +7,7 @@ const mysql = require('mysql2')     //подключаем библиотеку 
 const cors = require('cors')
 const timeConstants = require('./consts/time_consts')
 
-const connection = mysql.createConnection({
+const connection = mysql.createPool({
     host: "eu-cdbr-west-01.cleardb.com", //адрес базы данных
     user: "b266462846649d",
     database: "heroku_28d2ba6f5985a82", //название бд
