@@ -18,7 +18,7 @@ let students = []
 let lessons = []
 
 app.get("/",(req, res)=>{
-   // res.end("<div>Happy me</div>")
+    res.end("<div>Happy me</div>")
 })
 
 app.get('/api/lessons/:id', (req, res) => {//достаю список предметов по id препода из совпадений id в lessons
