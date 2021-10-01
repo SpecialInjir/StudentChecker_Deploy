@@ -6,10 +6,10 @@ const cors = require('cors')
 const timeConstants = require('./consts/time_consts')
 
 const connection = mysql.createConnection({
-    host: "us-cdbr-east-04.cleardb.com", //адрес базы данных
-    user: "b5928688e75919",
-    database: "heroku_ae5eccf704ed2e1", //название бд
-    password: "8c6374a2"
+    host: "eu-cdbr-west-01.cleardb.com", //адрес базы данных
+    user: "b266462846649d",
+    database: "heroku_28d2ba6f5985a82", //название бд
+    password: "2e18d860"
 });
 
 app.use(cors())
