@@ -14,6 +14,8 @@ const connection = mysql.createConnection({
     password: "2e18d860"
 });
 
+
+
 app.set("view options", {layout: false});
 app.use(express.static(__dirname +'/public'));
 app.use(cors())
