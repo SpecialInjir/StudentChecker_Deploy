@@ -1,3 +1,5 @@
+var fs = require('fs');
+var sys = require('sys');
 const express = require("express")
 const app = express()
 const PORT = process.env.PORT || 8000
@@ -12,6 +14,8 @@ const connection = mysql.createConnection({
     password: "2e18d860"
 });
 
+app.set("view options", {layout: false});
+app.use(express.static(__dirname +'/public'));
 app.use(cors())
 
 let students = []
