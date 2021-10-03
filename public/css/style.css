@@ -267,7 +267,7 @@ h5 {
 }
 .auth-body {
   background-image: url("../assets/light-abstract-colourful.jpg");
-  background-size: cover;
+  background-size: auto;
 }
 /* .student-body {
   min-height: 100vh;
