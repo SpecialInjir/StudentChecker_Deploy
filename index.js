@@ -27,41 +27,76 @@ app.get("/",(req, res)=>{
     res.end("<div>Happy me</div>")
 })
 
-app.get('/api/lessons/:id', (req, res) => {//достаю список предметов по id препода из совпадений id в lessons
-    const id = req.params.id
-    let sql = `SELECT lessonId FROM groups_attendance WHERE groupId=${id}`;
-    connection.query(sql, (err, data) => {
-        data.forEach((item) => {
-            getLessons(item.lessonId)
-        })
-    })
-    res.json(lessons)
-    lessons = []
-})
-
-function getLessons(id) {
-    let sql = `SELECT * FROM lessons WHERE Id=${id}`;
-    connection.query(sql, (err, data) => {
-        data.forEach((item) => {
-            lessons.push(item)
-        })
-    })
-}
 
 app.get('/api/get-lessons/:id', (req, res) => {
     const teacherId = req.params.id;
-    let sql = `SELECT * FROM Lessons WHERE TeacherID=${teacherId}`
-    connection.query(sql, (err, data) => {
-        res.json(data)
-    })
-})
+    let sql = `SELECT l.Id, l.Name,t.NumOfPair, t.Day, t.Audience,  t.Id as TimeTableId, g.Id as GroupId, g.GroupName, count(t.Id) as Count FROM Lessons l
+    LEFT JOIN timitable t ON (l.Id = t.LessonId AND timestampdiff(day, t.Day, curdate()) = 0)
+	INNER JOIN groups g ON t.GroupId = g.Id
+    WHERE TeacherID = ${teacherId}
+    GROUP BY t.Id
+    ORDER BY NumOfPair`
 
-app.get('/api/get-groups/:id', (req, res) => {// id предмета достаем id группы и все о ней знаем
-    const lessonId = req.params.id;
-    let sql = `SELECT DISTINCT GroupId , GroupName  FROM Groups INNER JOIN
-    timitable ON Groups.Id = timitable.GroupId WHERE LessonId=${lessonId}`
     connection.query(sql, (err, data) => {
-        res.json(data)
+        let lessons = [];
+        data.forEach((val)=>{
+            let existingLessonIdx = lessons.findIndex((les)=>  les.Id === val.Id);
+            if (existingLessonIdx === -1){
+                if (val.Count > 0){
+                    lessons.push({
+                        Id: val.Id,
+                        Name: val.Name,
+                        Pairs: [{
+                            TimeTableId: val.TimeTableId,
+                            NumOfPair: val.NumOfPair,
+                            Day: val.Day,
+                            Audience: val.Audience,
+                            Groups: [{
+                                GroupdId: val.GroupId,
+                                GroupName: val.GroupName
+                            }]
+                        }]
+                    })
+                } else {
+                    lessons.push({
+                        Id: val.Id,
+                        Name: val.Name,
+                        Pairs: [null]
+                    })
+                }
+                
+            } else{
+                if (val.Count > 0){
+                    let existingPair = lessons[existingLessonIdx].Pairs
+                    .findIndex((pair)=> pair.NumOfPair === val.NumOfPair)
+
+                    if (existingPair === -1){
+                        lessons[existingLessonIdx].Pairs.push({
+                            TimeTableId: val.TimeTableId,
+                            NumOfPair: val.NumOfPair,
+                            Day: val.Day,
+                            Audience: val.Audience,
+                            Groups: [{
+                                GroupdId: val.GroupId,
+                                GroupName: val.GroupName
+                            }]
+                        })
+                    } else {
+                        let existingGroup = lessons[existingLessonIdx].Pairs[existingPair].Groups
+                            .findIndex((group)=> group.GroupdId === val.GroupdId)
+                        if (existingGroup === -1){
+                            lessons[existingLessonIdx].Pairs[existingPair].Groups.push({
+                                GroupdId: val.GroupId,
+                                GroupName: val.GroupName
+                            })
+                        }
+                    }
+
+                    
+                }
+            }
+        })
+        res.json(lessons)
     })
 })
 
@@ -163,11 +198,6 @@ app.post('/api/insert-attendance', (req, res) => {//обработчик для 
     })
 })
 
-// app.post('api/signin/',(req, res)=>{
-// let login=req.body.login
-// let password=req.body.password
-// console.log(password)
-// })
 app.post('/api/sign-in', (req, res) => {
     const login = req.body.login
     const password = req.body.password
@@ -216,6 +246,7 @@ function checkCurrentLesson() {
     }
     return currentLesson;
 }
+
 app.get('/api/teacher-timetable/:id', (req, res) => {// id групппы получаем по этому id получаем студентов
     const id = req.params.id
     console.log(id)
@@ -226,6 +257,24 @@ ORDER BY teachertimetable.Day`;
     connection.query(sql, (err, data) => {
         console.log(data)
         res.send(data)
+    })
+})
+
+
+app.post('/api/get-students-attendance', (req, res) =>{
+    let groupId = req.body.groupId;
+    let timeTableId = req.body.timetableId;
+    console.log(req.body)
+
+
+    let sql = `SELECT * FROM students s
+    LEFT JOIN normal_attendance n ON (s.CardCode = n.CardCode)
+    WHERE s.GroupId = ${groupId} AND n.TimetableId = ${timeTableId}
+    ORDER BY s.Surname`
+
+    connection.query(sql,(err, data)=>{
+        console.log(data)
+        res.send(data);
     })
 })
 

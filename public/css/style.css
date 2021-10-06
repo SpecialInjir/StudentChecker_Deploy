@@ -5,7 +5,7 @@ body {
   background-color: #fff;
   padding: 0px;
   font-size: 18px;
-  /* #fff #2f3950 #db4c3f #fff */
+
   font-weight: 500;
   height: auto;
   width: 100%;
@@ -19,9 +19,9 @@ header {
   background-color: #191919;
   color: black;
   overflow: hidden;
-  position: fixed; /* Set the navbar to fixed position */
+  position: fixed;
   top: 0; /* Position the navbar at the top of the page */
-  width: 100%; /* Full width */
+  width: 100%;
   height: auto;
   z-index: 999;
 }
@@ -98,7 +98,8 @@ header {
 }
 
 .wrapper > .wrapper-lessons,
-.wrapper-groups {
+.wrapper-groups,
+.wrapper-pairs {
   /* display: grid;
 	grid-template-columns: 20% 20% 20% 20% 20%; 
 	margin-top: 2em; */
@@ -163,6 +164,12 @@ header {
   min-height: 250px;
   border-radius: 5px;
   white-space: pre-line;
+}
+.student-presence {
+  margin-right: 60px;
+  float: right;
+  width: 10px;
+  text-align: center;
 }
 .lessons {
   margin-top: 80px;
@@ -267,7 +274,7 @@ h5 {
 }
 .auth-body {
   background-image: url("../assets/light-abstract-colourful.jpg");
-  background-size: auto;
+  background-size: cover;
 }
 /* .student-body {
   min-height: 100vh;
