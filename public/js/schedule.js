@@ -14,12 +14,14 @@ function getLessons() {
     const xhr = new XMLHttpRequest()
     xhr.open('GET', requestURL + `${id}`)
     xhr.onload = () => {
+    let date;
        let lessons = JSON.parse(xhr.response)
         lessons.forEach((lesson) => {
+            date= new Date(lesson.Day)
             lessonsStr += `<tr>
             <td>${lesson.NumofPair}</td>
             <td>${lesson.Name}</td>
-            <td>${lesson.Day.toLocaleString()}</td>
+            <td>${date.toLocaleDateString()}</td>
             </tr>`
         })
      console.log(lessons)
