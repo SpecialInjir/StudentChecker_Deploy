@@ -29,6 +29,7 @@ function getLessons() {
 }
 
 function getPairs(lessonIndex){
+    lessonId=lessons[lessonIndex].Id
     let pairsStr = ``;
     $(`.wrapper-pairs`).empty();
     $(`.wrapper-groups`).empty();
