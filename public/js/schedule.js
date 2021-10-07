@@ -4,7 +4,7 @@ function getLessons() {
     var url = window.location.href.split("?");
     var idx = url[1].split('&')
     let id = idx[0]
-    //let id=2;
+    //let id=2;фор тичер
     let lessonsStr = `<tr>
          <th> Num of lesson </th>
          <th> Name of lesson </th>
@@ -17,7 +17,7 @@ function getLessons() {
     let date;
        let lessons = JSON.parse(xhr.response)
         lessons.forEach((lesson) => {
-            date= new Date(lesson.Day)
+            date=new Date(lesson.Day)
             lessonsStr += `<tr>
             <td>${lesson.NumofPair}</td>
             <td>${lesson.Name}</td>
