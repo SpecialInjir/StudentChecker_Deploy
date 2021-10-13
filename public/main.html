@@ -13,46 +13,52 @@
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <link rel="shortcut icon" type="image/png" href="css/sfedu_sm.png">
 </head>
 
 <body>
 	<header>
 		<div class="header">
 			<ul class="ul-title">
-				<li class="li-title"><a href=""></a></li>
-				<li class="li-title"><a href=""></a></li>
-				<li class="li-title"><a href=""></a></li>
-				<li class="li-title"><a href=""></a></li>
+				<img src="http://ictis.sfedu.ru/wp-content/themes/ictis_site/i/sfedu_sm.png" alt="ЮФУ">
+				<li class="li-title caption"><a href="">Student
+					Checker</a></li>
+				<li class="li-title"><a href="">Система</a></li>
+				<li class="li-title"><a href="">Студент</a></li>
+				<li class="li-title"><a href="">Дополнительно</a></li>
+				<li class="li-title"><a href="">Преподавателю</a></li>
 			</ul>
 		</div>
 	</header>
 	
-	<div class="input-container"><button  class="input-schedule" onclick=redirectToSchedule()>Расписание
-	</button>
-</div>
 
 	<section class="main">
 		
-		<div class="wrapper">
+		
 			<div class="wrapper-lessons">
-			</div>
-			<div class="wrapper-pairs">
+			
 			</div>
 			<div class="wrapper-groups">
+				
 			</div>
+			<table id="table-content">
+				
+			</table>
+	
 	</section>
 
 
-	<div class="warning"></div>
-	<div class="table">
+	<section class="table">
+	
 		<div class="groups_name" align="center" id="groups">
-			<div class="warning">Выберите группу из списка выше!</div>
+			<div class="warning">Выберите группу из списка выше</div>
+			
 			<div class="students" type="text" id="list_of_students" align="left">
-				Список студентов
+				
 			</div>
 		</div>
-	</div>
 
+	</section>
 	<div class="underground">
 		<div class="underground-menu underground-title">
 			<a href="#"><b>Меню</b></a>
@@ -76,6 +82,9 @@
 	</div>
 	<!-- <script src="./js/main.js"></script> -->
 	<script src="./js/teacher.js"></script>
+	<script src="./js/schedule.js"></script>
+	
+	
 </body>
 
 </html>

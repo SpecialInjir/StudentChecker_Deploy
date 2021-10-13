@@ -1,34 +1,40 @@
 body {
   font-family: "Roboto", sans-serif;
   margin: 0px;
-  color: #000;
+
   background-color: #fff;
+  background: url(http://ictis.sfedu.ru/wp-content/themes/ictis_site/i/back.jpg)
+    no-repeat center center fixed;
   padding: 0px;
   font-size: 18px;
-
+  /* #fff #2f3950 #db4c3f #fff */
   font-weight: 500;
   height: auto;
   width: 100%;
   min-height: 150%;
-  background-image: url("../assets/light-abstract-colourful.jpg");
   background-size: cover;
   overflow-x: hidden;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
 }
 
 header {
-  background-color: #191919;
-  color: black;
+  background-color: #0f1f2dc2;
   overflow: hidden;
-  position: fixed;
+  position: absolute; /* Set the navbar to fixed position */
   top: 0; /* Position the navbar at the top of the page */
-  width: 100%;
+  width: 100%; /* Full width */
   height: auto;
   z-index: 999;
+
+  box-shadow: 0 0 20px 3px rgb(0 0 0 / 50%);
+  -webkit-box-shadow: 0 0 20px 3px rgb(0 0 0 / 50%);
 }
 
 .ul-title {
   display: flex;
   justify-content: space-between;
+  align-content: center;
   align-items: center;
   list-style-type: none;
   padding: 14px 0px;
@@ -36,15 +42,22 @@ header {
 }
 
 .ul-title a {
+  padding: 1em;
+  display: block;
   color: #fff;
   text-decoration: none;
+  transition: background-color 1s linear;
 }
 
 .ul-title a:hover {
-  background-color: #db4c3f;
-  transition: 0.25s;
+  background-color: #5f40db;
+  transition: 1s;
   padding-top: 1em;
   padding-bottom: 1em;
+}
+
+.caption {
+  font-size: 19px;
 }
 
 .content {
@@ -64,19 +77,37 @@ header {
   /*align-items: center;*/
   flex-direction: column;
   padding: 1em;
-  margin: 1em;
-  background-color: #2256c8d8;
+
+  background-color: #3d659a !important;
+  margin-left: 15em;
+  margin-right: 15em;
+  margin-top: 5em;
 }
 
 .data {
-  display: flex;
   margin-top: 5px;
   justify-content: space-between;
   color: aliceblue;
+  display: flex;
+  color: white;
+  justify-content: space-around;
+  margin: 3px 200px;
+  border-radius: 10px;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 2px;
+  background-image: linear-gradient(to right, #9eefe1 0%, #4830f0 51%);
+  background-size: auto;
+  box-shadow: 0 0 20px rgb(253 253 253 / 13%);
+  transition: 0.5s;
+  text-align: center;
+  border: none;
+  /* size: 50px; */
+  padding: 15px 32px;
+  width: 500px;
 }
 
 .data:hover {
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(115, 228, 100);
   color: black;
 }
 
@@ -97,40 +128,66 @@ header {
   padding: 30px 0px;
 }
 
-.wrapper > .wrapper-lessons,
-.wrapper-groups,
-.wrapper-pairs {
+.wrapper-lessons {
   /* display: grid;
 	grid-template-columns: 20% 20% 20% 20% 20%; 
 	margin-top: 2em; */
-  display: flex;
+  justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
   margin-top: 2em;
+  display: grid;
+  align-content: center;
+  color: white;
+  padding: 1em;
+  background-color: #2f3950;
+  margin-left: 10em;
+  margin-right: 3em;
+  border-radius: 5px;
+  box-shadow: 0 0 20px 3px rgb(0 0 0 / 50%);
+  -webkit-box-shadow: 0 0 20px 3px rgb(0 0 0 / 50%);
+}
+.wrapper-groups {
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 2em;
+  display: grid;
+  align-content: center;
+  color: white;
+  padding: 1em;
+  background-color: #356590;
+  justify-content: center;
+  margin-right: 3em;
+  border-radius: 5px;
+  box-shadow: 0 0 20px 3px rgb(0 0 0 / 50%);
+  -webkit-box-shadow: 0 0 20px 3px rgb(0 0 0 / 50%);
 }
 
-.wrapper > .wrapper-button > button {
-  padding: 10px 5px;
-  /*background-color: #1dcfba;*/
-  background-color: #47a6e6;
-  color: #fff;
-  margin-left: 1.5em;
-  margin-bottom: 1em;
-  margin-right: 1.5em;
-  outline: none;
-  border-radius: 2px;
+.button {
+  text-decoration: none;
+  display: inline-block;
+  color: white;
+  justify-content: center;
+
+  margin: 10px 20px;
+  border-radius: 10px;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 2px;
+  background-image: linear-gradient(
+    to right,
+    #9eefe1 0%,
+    #4830f0 51%,
+    #9eefe1 100%
+  );
+  background-size: 200% auto;
+  box-shadow: 0 0 20px rgba(253, 253, 253, 0.13);
+  transition: 0.5s;
+  text-align: center;
   border: none;
-  opacity: 0.85;
-  border-color: #fff;
 }
 
-.wrapper > .wrapper-button > button:hover {
-  background-color: #191919;
-  color: #fff;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.35s;
-  opacity: 1;
+.button:hover {
+  background-position: right center;
 }
 
 .wrapper hr {
@@ -138,20 +195,51 @@ header {
   border: 1px solid #fff;
 }
 
+.main {
+  margin-top: 5em;
+  display: grid;
+  grid-template-columns: 40% 30% 27%;
+  height: 200px;
+  grid-column-gap: 1em;
+}
+
+td,
+th {
+  border: 1px solid rgb(241, 231, 231);
+  text-align: center;
+}
+#table-content {
+  color: white;
+  text-align: center;
+  padding: 1em;
+  background-color: #db4c3f;
+  width: auto;
+  margin-left: auto;
+  margin-right: 10em;
+  margin-top: 2em;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border-radius: 5px;
+  box-shadow: 0 0 20px 3px rgb(0 0 0 / 50%);
+  -webkit-box-shadow: 0 0 20px 3px rgb(0 0 0 / 50%);
+}
+
 .table {
-  margin: 5% 4%;
+  margin-top: 9em;
 }
 
 .groups_name {
   padding: 1em;
   border-radius: 5px;
-  background: #382eced5;
+  background: #0f1f2d;
   font-weight: bold;
   color: rgb(255, 255, 255);
   height: auto;
-  width: 70%;
+  width: 55%;
   text-transform: uppercase;
   margin: 0 auto;
+
+  box-shadow: 0 0 20px 3px #0f1f2d(0 0 0 / 50%);
+  -webkit-box-shadow: 0 0 20px 3px rgb(0 0 0 / 50%);
 }
 
 .students {
@@ -163,13 +251,6 @@ header {
   height: auto;
   min-height: 250px;
   border-radius: 5px;
-  white-space: pre-line;
-}
-.student-presence {
-  margin-right: 60px;
-  float: right;
-  width: 10px;
-  text-align: center;
 }
 .lessons {
   margin-top: 80px;
@@ -189,15 +270,18 @@ header {
 	float: bottom;
 	background-color: #191919;
 	color: #fff; */
+  margin-top: 4em;
   position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
   padding: 2em;
-  background-color: #191919;
-  color: #fff;
+  background-color: #0f1f2d;
   overflow: hidden;
   bottom: 0;
+  border: 1px solid #0f1f2d(66, 65, 65);
+  box-shadow: 0 0 20px 3px rgb(0 0 0 / 50%);
+  -webkit-box-shadow: 0 0 20px 3px rgb(0 0 0 / 50%);
 }
 .underground-menu {
   display: flex;
@@ -229,56 +313,16 @@ header {
 
 .underground a li:hover {
   text-decoration: underline;
-  color: #db4c3f;
+  color: #3957db;
   transition: 0.3s linear;
 }
 
 .button {
-  border-radius: 7px;
   height: 50px;
   margin-right: 10px;
-  color: #fff;
-  background-color: #1f72aafa;
-  width: 270px;
-  border-color: aliceblue;
+  width: 260px;
 }
-.auth_form {
-  display: flex;
-  justify-content: center;
-  margin-top: 200px;
-}
-.login {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-h5 {
-  font-size: 13pt;
-  margin-bottom: 10px;
-  color: white;
-}
-.auth-input {
-  border-color: #33313170;
-  width: 300px;
-  border-radius: 4px;
-}
-#sign-in {
-  background-color: rgb(65, 176, 241);
-  font-size: 12pt;
-  width: 85px;
-  margin: 0 auto;
-  border-radius: 10px;
-  border-color: #ecdddd00;
-  color: white;
-  margin-top: 10px;
-}
-.auth-body {
-  background-image: url("../assets/light-abstract-colourful.jpg");
-  background-size: cover;
-}
-/* .student-body {
-  min-height: 100vh;
-} */
+
 .underground-title {
   width: 95%;
 }
@@ -297,4 +341,53 @@ h5 {
 
 .input-container {
   margin-top: 70px;
+}
+#list_of_students a {
+  display: inline-block;
+  color: white;
+  justify-content: space-around;
+  margin: 3px 200px;
+  border-radius: 10px;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 2px;
+  background-image: linear-gradient(to right, #277c6e 3%, #27663a 100%);
+  background-size: auto;
+  box-shadow: 0 0 20px rgb(253 253 253 / 13%);
+  transition: 0.5s;
+  text-align: center;
+  border: none;
+  /* size: 50px; */
+  padding: 15px 32px;
+  width: 500px;
+}
+
+#list_of_students a:hover {
+  background-position: left center;
+}
+#edit {
+  display: inline-block;
+  color: white;
+  justify-content: space-around;
+
+  border-radius: 10px;
+  font-family: "Montserrat", sans-serif;
+  /* letter-spacing: 2px; */
+  background-color: rgb(74, 175, 74);
+  background-size: auto;
+  box-shadow: 0 0 20px rgb(253 253 253 / 13%);
+  transition: 0.5s;
+  text-align: center;
+  border: none;
+  /* size: 50px; */
+  /* padding: 15px 32px; */
+  width: 150px;
+  height: 40px;
+  margin-right: 0;
+  margin-left: auto;
+}
+.for-edit {
+  display: flex;
+
+  margin-right: 250px;
+  margin-right: 250px;
 }
