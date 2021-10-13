@@ -7,7 +7,7 @@ body {
     no-repeat center center fixed;
   padding: 0px;
   font-size: 18px;
-  /* #fff #2f3950 #db4c3f #fff */
+
   font-weight: 500;
   height: auto;
   width: 100%;
@@ -21,9 +21,9 @@ body {
 header {
   background-color: #0f1f2dc2;
   overflow: hidden;
-  position: absolute; /* Set the navbar to fixed position */
-  top: 0; /* Position the navbar at the top of the page */
-  width: 100%; /* Full width */
+  position: absolute;
+  top: 0;
+  width: 100%;
   height: auto;
   z-index: 999;
 
@@ -101,7 +101,7 @@ header {
   transition: 0.5s;
   text-align: center;
   border: none;
-  /* size: 50px; */
+
   padding: 15px 32px;
   width: 500px;
 }
@@ -147,7 +147,8 @@ header {
   box-shadow: 0 0 20px 3px rgb(0 0 0 / 50%);
   -webkit-box-shadow: 0 0 20px 3px rgb(0 0 0 / 50%);
 }
-.wrapper-groups {
+
+.wrapper-pairs {
   flex-direction: row;
   flex-wrap: wrap;
   margin-top: 2em;
@@ -156,6 +157,21 @@ header {
   color: white;
   padding: 1em;
   background-color: #356590;
+  justify-content: center;
+  margin-right: 3em;
+  border-radius: 5px;
+  box-shadow: 0 0 20px 3px rgb(0 0 0 / 50%);
+  -webkit-box-shadow: 0 0 20px 3px rgb(0 0 0 / 50%);
+}
+.wrapper-groups {
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 2em;
+  display: grid;
+  align-content: center;
+  color: white;
+  padding: 1em;
+  background-color: #8978be;
   justify-content: center;
   margin-right: 3em;
   border-radius: 5px;
@@ -343,10 +359,10 @@ th {
   margin-top: 70px;
 }
 #list_of_students a {
-  display: inline-block;
+  display: flex;
   color: white;
   justify-content: space-around;
-  margin: 3px 200px;
+
   border-radius: 10px;
   font-family: "Montserrat", sans-serif;
   letter-spacing: 2px;
@@ -356,38 +372,47 @@ th {
   transition: 0.5s;
   text-align: center;
   border: none;
-  /* size: 50px; */
+
   padding: 15px 32px;
-  width: 500px;
+  width: 400px;
+  margin-bottom: 20px;
 }
 
 #list_of_students a:hover {
   background-position: left center;
 }
-#edit {
+#edit,
+#close,
+#save {
   display: inline-block;
   color: white;
   justify-content: space-around;
 
   border-radius: 10px;
   font-family: "Montserrat", sans-serif;
-  /* letter-spacing: 2px; */
+
   background-color: rgb(74, 175, 74);
   background-size: auto;
   box-shadow: 0 0 20px rgb(253 253 253 / 13%);
   transition: 0.5s;
   text-align: center;
   border: none;
-  /* size: 50px; */
-  /* padding: 15px 32px; */
+
   width: 150px;
   height: 40px;
   margin-right: 0;
   margin-left: auto;
+}
+#close {
+  background-color: rgb(233, 19, 19);
 }
 .for-edit {
   display: flex;
 
   margin-right: 250px;
   margin-right: 250px;
+}
+
+.invisible {
+  display: none !important;
 }

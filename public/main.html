@@ -38,12 +38,15 @@
 			<div class="wrapper-lessons">
 			
 			</div>
+			<div class="wrapper-pairs">
+				
+			</div>
 			<div class="wrapper-groups">
 				
 			</div>
-			<table id="table-content">
+			<!-- <table id="table-content"> -->
 				
-			</table>
+			<!-- </table> -->
 	
 	</section>
 
@@ -51,7 +54,14 @@
 	<section class="table">
 	
 		<div class="groups_name" align="center" id="groups">
-			<div class="warning">Выберите группу из списка выше</div>
+			<div class="warning">Выберите группу из списка выше
+				<div class="edit-buttons invisible" >
+					<button id="edit" onclick="editAttendance()">Edit</button>
+					<button id="close" class="invisible" onclick="closeEditMode()">Close</button>
+					<button id="save" class="invisible">Save</button>
+				</div>
+				
+			</div>
 			
 			<div class="students" type="text" id="list_of_students" align="left">
 				
