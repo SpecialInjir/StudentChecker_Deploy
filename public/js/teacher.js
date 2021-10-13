@@ -69,18 +69,49 @@ function getStudents(groupId, timetableId) {
         students = JSON.parse(xhr.response)
         students.forEach((student) => {
             studentsStr += `<a href="./student.html?${student.CardCode}&${lessonId}">
-			${student.Surname} ${student.Name}</a><div class="student-presence" >${student.Presence === 1? '+': '-'}</div><br>`
+			${student.Surname} ${student.Name}</a>
+            <div class="student-presence" >${student.Presence === 1? '+': '-'}</div>
+            
+            <br>`
         })
 
         $(`.students`).html(studentsStr);
+
+        if (students.length > 0){
+            $('.edit-buttons').removeClass('invisible');
+        }
     }
     xhr.send(params)
 }
 
 function redirectToSchedule(){
-	var url = window.location.href.split("?");
-    var idx = url[1].split('&')
+	let url = window.location.href.split("?");
+    let idx = url[1].split('&')
     let id = idx[0]
 	console.log(id)
 	window.location.href = './schedule.html?' + id
+}
+
+function editAttendance(){
+    $('#edit').addClass('invisible');
+    $('#close').removeClass('invisible');
+    $('#save').removeClass('invisible');
+    $('.student-presence').addClass('invisible');
+}
+
+function closeEditMode(){
+    $('#edit').removeClass('invisible');
+    $('#close').addClass('invisible');
+    $('#save').addClass('invisible');
+    $('.student-presence').removeClass('invisible');
+}
+
+function saveAttendance(){
+
+}
+
+function changeStudentAttendance(id, checkedId, uncheckedId, newPresence){
+    console.log(checkedId)
+    $("#checkedId").prop("checked", true);
+    $("#uncheckedId").prop("checked", false);
 }
