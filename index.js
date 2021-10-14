@@ -3,10 +3,11 @@ var sys = require('sys');
 const express = require("express")
 const app = express()
 const PORT = process.env.PORT || 8000
-
+// PORT=4000
 const mysql = require('mysql2')     //подключаем библиотеку для работы с базой данных
 const cors = require('cors')
-const timeConstants = require('./consts/time_consts')
+const timeConstants = require('./consts/time_consts');
+const { Console } = require('console');
 
 const connection = mysql.createPool({
     host: "eu-cdbr-west-01.cleardb.com", //адрес базы данных
@@ -146,58 +147,58 @@ app.post('/api/timetable/', (req, res) => {//id пары и предмета н�
     })
 })
 
-app.post('/api/insert-attendance', (req, res) => {//обработчик для записи в базу
-   
+app.post('/api/insert-attendance', async (req, res) => {//обработчик для записи в базу
     const id = req.body.id
-
     let allCards = req.body.cards
-    let cards = allCards.split(',')
+    let cards = allCards
+    let numOfPair = checkCurrentLesson()
+    let audience = await getAudience(id)
+    let timitableId = await getTimetable(audience, numOfPair)
+    await insertAttendance(cards, timitableId).then(
+        result=> res.send('Attendances has been inserted in DB'),
+        error => res.status(200).send({error: 'Attendances inserting has been failed'})
+        );
 
-    let sql = ``
-    cards.forEach((card) => {
-        sql = `INSERT INTO normal_attendance(CardCode, TimetableId, Presence) VALUES (${card.trim()}, ${id}, 1)`
-        console.log(sql)
-        connection.query(sql, (err, data) => {
-            console.log('SQL request has been executed')
-        })
-    })
 })
 
-app.post('/api/insert-attendance', (req, res) => {//обработчик для записи в базу
-    const id = req.body.id
-
-    let allCards = req.body.cards
-    let cards = allCards.split(',')
-    let numOfPair = checkCurrentLesson()
-
-    let audience
-    if (numOfPair) {
+async function getAudience(id){
+    return new Promise(function(resolve, reject) {
         let audienceSql = ` SELECT audience FROM slots WHERE id=${id}`
         connection.execute(audienceSql, (err, data) => {
-            audience = data;
-        })
-    }
-
-    if (audience && numOfPair) {
-        let date = new Date()
-        date = date.toLocaleDateString()
-        let timitableId
-        let timetableSql = ` SELECT id FROM timitabe WHERE audience=${audience} AND Day=${date} AND NumOfPair=${numOfPair}`
-        connection.execute(audienceSql, (err, data) => {
-            timitableId = data;
-        })
-    }
-
-
-    let sql = ``
-    cards.forEach((card) => {
-        sql = `INSERT INTO normal_attendance(CardCode, TimetableId, Presence) VALUES (${card.trim()}, ${timitableId}, 1)`
-        console.log(sql)
-        connection.query(sql, (err, data) => {
-            console.log('SQL request has been executed')
+            resolve(data[0].audience);
         })
     })
-})
+}
+
+async function getTimetable(audience, numOfPair){
+    return new Promise(function(resolve, reject) {
+        let timetableSql = ` SELECT Id FROM timitable WHERE Audience=${audience} AND timestampdiff(DAY, Day , curdate()) = 0 AND NumOfPair=${numOfPair}`
+        connection.execute(timetableSql, (err, data) => {
+            if (data.length>0){
+                resolve(data[0].Id);
+            } else {
+                reject(new Error('Timetable does not find'))
+            }
+        })
+    })
+}
+
+async function insertAttendance(cards,timetableId){
+    return new Promise(function(resolve, reject) {
+    let sql = ``
+    if (timetableId){
+        cards.forEach((card) => {
+            sql = `INSERT INTO normal_attendance(CardCode, TimetableId, Presence) VALUES (${card}, ${timetableId}, 1)`
+            connection.query(sql, (err, data) => {
+                resolve();
+            })
+        })
+    } else {
+        reject(new Error())
+    }
+    })
+
+}
 
 app.post('/api/sign-in', (req, res) => {
     const login = req.body.login
