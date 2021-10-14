@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 8000
 const mysql = require('mysql2')     //подключаем библиотеку для работы с базой данных
 const cors = require('cors')
 const timeConstants = require('./consts/time_consts');
-const { Console } = require('console');
+
 
 const connection = mysql.createPool({
     host: "eu-cdbr-west-01.cleardb.com", //адрес базы данных
