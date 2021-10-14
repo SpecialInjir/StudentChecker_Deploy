@@ -3,11 +3,9 @@ var sys = require('sys');
 const express = require("express")
 const app = express()
 const PORT = process.env.PORT || 8000
-// PORT=4000
 const mysql = require('mysql2')     //подключаем библиотеку для работы с базой данных
 const cors = require('cors')
 const timeConstants = require('./consts/time_consts');
-
 
 const connection = mysql.createPool({
     host: "eu-cdbr-west-01.cleardb.com", //адрес базы данных
@@ -154,10 +152,14 @@ app.post('/api/insert-attendance', async (req, res) => {//обработчик �
     let numOfPair = checkCurrentLesson()
     let audience = await getAudience(id)
     let timitableId = await getTimetable(audience, numOfPair)
-    await insertAttendance(cards, timitableId).then(
-        result=> res.send('Attendances has been inserted in DB'),
-        error => res.status(200).send({error: 'Attendances inserting has been failed'})
-        );
+    .then(
+        result =>  insertAttendance(cards, result).then(
+            result => res.send('Attendances has been inserted in DB'),
+            error => res.status(200).send({error: 'Attendances inserting has been failed'})
+            ),
+        error => res.status(200).send({error: 'Timetable does not find'})
+    )
+    
 
 })
 
@@ -177,7 +179,7 @@ async function getTimetable(audience, numOfPair){
             if (data.length>0){
                 resolve(data[0].Id);
             } else {
-                reject(new Error('Timetable does not find'))
+                reject(new Error())
             }
         })
     })
@@ -219,6 +221,8 @@ checkCurrentLesson()
 
 function checkCurrentLesson() {
     let nowDate = new Date();
+    let utcDate = new Date(nowDate.getUTCDate())
+    utcDate.setHours(utcDate.getHours() + 3);
     let time = Date.parse(nowDate)
     let currentLesson
 
