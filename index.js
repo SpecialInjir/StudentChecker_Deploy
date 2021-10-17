@@ -225,6 +225,7 @@ checkCurrentLesson()
 function checkCurrentLesson() {
     let date = moment.utc();
     let utcDate = new Date(date.format());
+    utcDate.setHours(utcDate.getHours() + 3);
     let time = Date.parse(utcDate)
     let currentLesson
 
