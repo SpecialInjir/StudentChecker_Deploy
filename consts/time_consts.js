@@ -2,7 +2,7 @@ const moment = require('moment')
 
 let date = moment.utc();
 let nowDate = new Date(date.format());
-nowDate.setHours(nowDate.getHours() + 3);
+
 
 module.exports = ({
     LESSON_1_START: nowDate.setHours(8, 0, 0, 0),
