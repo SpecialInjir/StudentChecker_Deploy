@@ -2,10 +2,11 @@ var fs = require('fs');
 var sys = require('sys');
 const express = require("express")
 const app = express()
-const PORT = process.env.PORT || 8000
+const moment=require('moment')
 const mysql = require('mysql2')     //подключаем библиотеку для работы с базой данных
 const cors = require('cors')
 const timeConstants = require('./consts/time_consts');
+const PORT = process.env.PORT || 8000
 
 const connection = mysql.createPool({
     host: "eu-cdbr-west-01.cleardb.com", //адрес базы данных
@@ -220,14 +221,13 @@ app.post('/api/sign-in', (req, res) => {
 checkCurrentLesson()
 
 function checkCurrentLesson() {
-    let nowDate = new Date();
-    let utcDate = new Date(nowDate.getUTCDate())
-    utcDate.setHours(utcDate.getHours() + 3);
-    let time = Date.parse(nowDate)
+    let date = moment.utc();
+    let utcDate = new Date(date.format());
+    let time = Date.parse(utcDate)
     let currentLesson
 
-    if (timeConstants.LESSON_1_START <= time && time <= timeConstants.LESSON_1_END) {
-        
+
+    if (timeConstants.LESSON_1_START <= time && time <= timeConstants.LESSON_1_END) { 
         currentLesson = 1
     }
     else if (timeConstants.LESSON_2_START <= time && time <= timeConstants.LESSON_2_END) {
@@ -250,6 +250,7 @@ function checkCurrentLesson() {
     } else {
         currentLesson = 0
     }
+
     return currentLesson;
 }
 
