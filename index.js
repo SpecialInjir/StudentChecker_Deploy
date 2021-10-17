@@ -174,6 +174,8 @@ async function getAudience(id){
 }
 
 async function getTimetable(audience, numOfPair){
+    console.log(audience)
+    console.log(numOfPair)
     return new Promise(function(resolve, reject) {
         let timetableSql = ` SELECT Id FROM timitable WHERE Audience=${audience} AND timestampdiff(DAY, Day , curdate()) = 0 AND NumOfPair=${numOfPair}`
         connection.execute(timetableSql, (err, data) => {
@@ -250,7 +252,9 @@ function checkCurrentLesson() {
     } else {
         currentLesson = 0
     }
-
+  console.log('start', timeConstants.LESSON_7_START)
+  console.log('end',timeConstants.LESSON_7_END)
+  console.log(time)
     return currentLesson;
 }
 
