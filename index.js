@@ -12,7 +12,8 @@ const connection = mysql.createPool({
     host: "eu-cdbr-west-01.cleardb.com", //адрес базы данных
     user: "b266462846649d",
     database: "heroku_28d2ba6f5985a82", //название бд
-    password: "2e18d860"
+    password: "2e18d860",
+    multipleStatements: true,
 });
 
 
@@ -156,9 +157,9 @@ app.post('/api/insert-attendance', async (req, res) => {//обработчик �
     .then(
         result =>  insertAttendance(cards, result).then(
             result => res.send('Attendances has been inserted in DB'),
-            error => res.status(200).send({error: 'Attendances inserting has been failed'})
+            error => res.status(500).send({error: 'Attendances inserting has been failed'})
             ),
-        error => res.status(200).send({error: 'Timetable does not find'})
+        error => res.status(500).send({error: 'Timetable does not find'})
     )
     
 
@@ -174,8 +175,6 @@ async function getAudience(id){
 }
 
 async function getTimetable(audience, numOfPair){
-    console.log(audience)
-    console.log(numOfPair)
     return new Promise(function(resolve, reject) {
         let timetableSql = ` SELECT Id FROM timitable WHERE Audience=${audience} AND timestampdiff(DAY, Day , curdate()) = 0 AND NumOfPair=${numOfPair}`
         connection.execute(timetableSql, (err, data) => {
@@ -215,7 +214,7 @@ app.post('/api/sign-in', (req, res) => {
         if (data) {
             res.send(data[0])
         } else {
-            res.status(200).send({ error: 'Something failed!' });
+            res.status(500).send({ error: 'Something failed!' });
         }
     })
    
@@ -225,7 +224,6 @@ checkCurrentLesson()
 function checkCurrentLesson() {
     let date = moment.utc();
     let utcDate = new Date(date.format());
-    utcDate.setHours(utcDate.getHours() + 3);
     let time = Date.parse(utcDate)
     let currentLesson
 
@@ -253,9 +251,7 @@ function checkCurrentLesson() {
     } else {
         currentLesson = 0
     }
-  console.log('start', timeConstants.LESSON_7_START)
-  console.log('end',timeConstants.LESSON_7_END)
-  console.log(time)
+
     return currentLesson;
 }
 
@@ -288,6 +284,23 @@ app.post('/api/get-students-attendance', (req, res) =>{
         console.log(data)
         res.send(data);
     })
+})
+
+app.post('/api/update-attendances', (req, res)=>{
+    let timeTableId = req.body.timeTableId
+    let attendances = JSON.parse(req.body.attendances)
+    console.log(attendances)
+    let sql = ``
+    attendances.forEach((val)=>{
+        sql += `UPDATE normal_attendance SET Presence = ${val.presence} WHERE TimetableId = ${timeTableId} AND CardCode = ${val.cardCode};`
+    })
+     connection.query(sql, (err, data)=>{
+         if (!err){
+             res.status(200).send("Students attendances had been saved")
+         } else {
+            res.status(500).send("Error. Students attendances had not been saved")
+         }
+     })
 })
 
 app.listen(PORT, ()=>{
