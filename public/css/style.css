@@ -416,3 +416,6 @@ th {
 .invisible {
   display: none !important;
 }
+li:hover {
+  cursor: pointer;
+}
