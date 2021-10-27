@@ -375,7 +375,6 @@ th {
 
   padding: 15px 32px;
   width: 400px;
-  margin-bottom: 20px;
 }
 
 #list_of_students a:hover {
@@ -418,4 +417,51 @@ th {
 }
 li:hover {
   cursor: pointer;
+}
+label {
+  display: flex;
+  width: 60px;
+  height: 35px;
+  align-items: center;
+  justify-content: center;
+  background-color: #34495e;
+  color: white;
+}
+
+input[type="radio"]:checked + label {
+  background-color: #3bafda;
+}
+
+input[type="radio"]:checked + label:hover {
+  background-color: rgb(131, 81, 189);
+  cursor: pointer;
+}
+
+label:hover {
+  background-color: rgb(131, 81, 189);
+  cursor: pointer;
+}
+
+.student-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 50px;
+  margin-bottom: 15px;
+}
+.radio-group,
+.student-presence {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+}
+.presence {
+  border-radius: 10px 0 0 10px;
+}
+.absence {
+  border-radius: 0 10px 10px 0;
+}
+
+.checkedRadioButton {
+  background-color: rgb(56, 54, 207);
 }
