@@ -415,6 +415,9 @@ th {
 .invisible {
   display: none !important;
 }
+li:hover {
+  cursor: pointer;
+}
 label {
   display: flex;
   width: 60px;
