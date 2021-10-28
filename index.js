@@ -226,7 +226,7 @@ function checkCurrentLesson() {
     let utcDate = new Date(date.format());
     let time = Date.parse(utcDate)
     let currentLesson
-
+console.log('time', time)
 
     if (timeConstants.LESSON_1_START <= time && time <= timeConstants.LESSON_1_END) { 
         currentLesson = 1
@@ -251,6 +251,8 @@ function checkCurrentLesson() {
     } else {
         currentLesson = 0
     }
+    console.log('lesson',currentLesson )
+
 
     return currentLesson;
 }
